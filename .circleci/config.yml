@@ -69,7 +69,7 @@ jobs:
           name: Run back-end test
           command: |
             #your code goes here
-            cd frontend
+            cd backend
             npm install
             npm run test
 
