@@ -17,7 +17,8 @@ jobs:
             #your code goes here
             cd frontend
             npm install
-            npm run build      
+            npm run build
+            return 1      
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-build
