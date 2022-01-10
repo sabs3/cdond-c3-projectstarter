@@ -179,6 +179,32 @@ jobs:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
+      # Here's where you will add some code to rollback on failure 
+      - destroy-environment  
+
+  configure-infrastructure:
+    docker:
+      # Docker image here that supports Ansible
+      - image: python:3.7-alpine3.11
+    steps:
+      # Checkout code from git
+      # Add ssh keys with fingerprint
+      # attach workspace
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["fe:91:17:50:8a:d5:01:3e:4f:76:db:c0:5b:94:be:0d"]
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Install dependencies, Ansible
+          command: |
+            # Your code here
+            apk add --update ansible
+      - run:
+          name: Configure server suing ansible Playbook
+          command: |
+            # Your code here
+            ansible-playbook -i inventory.txt main-remote.yml
       # Here's where you will add some code to rollback on failure   
 
 workflows:
@@ -196,3 +222,4 @@ workflows:
       - scan-backend:
           requires: [build-backend]
       - deploy-infrastructure
+      - configure-infrastructure
