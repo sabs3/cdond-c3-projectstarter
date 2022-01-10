@@ -149,7 +149,10 @@ jobs:
     steps:
       # Checkout code from git
       -checkout
-      - run: yum install -y tar gzip
+      - run: 
+          name: installing tar gzip
+          command: |
+            yum install -y tar gzip
       - run:
           name: Ensure back-end infrastructure exists
           command: |
@@ -170,7 +173,9 @@ jobs:
           name: Add back-end ip to ansible inventory
           command: |
             # Your code here
-            exit 1
+            aws ec2 describe-instances \
+             --query 'Reservations[*].Instances[*].PublicIpAddress' \
+             --output text >> inventory.txt     
       - persist_to_workspace:
           root: ~/
           paths:
