@@ -148,7 +148,7 @@ jobs:
       - image: amazon/aws-cli
     steps:
       # Checkout code from git
-      -checkout
+      - checkout
       - run:
           name: Installing tar gzip
           command: |
