@@ -195,10 +195,16 @@ jobs:
       # Checkout code from git
       # Add ssh keys with fingerprint
       # attach workspace
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["fe:91:17:50:8a:d5:01:3e:4f:76:db:c0:5b:94:be:0d"]
+      - attach_workspace:
+          at: ~/
       - run:
           name: Install dependencies
           command: |
             # your code here
+            
       - run:
           name: Deploy backend
           command: |
