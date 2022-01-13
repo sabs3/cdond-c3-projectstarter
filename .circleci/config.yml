@@ -237,6 +237,7 @@ jobs:
           command: |
             # Your code here
             cd backend
+            npm i
             npm install
             # Run and save the migration output
             echo "running migration and saving output in migrations_dump.txt"
