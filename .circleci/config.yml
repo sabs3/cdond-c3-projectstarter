@@ -189,7 +189,7 @@ jobs:
           paths:
             - project/.circleci/ansible/inventory.txt
       # Here's where you will add some code to rollback on failure 
-      #- destroy-environment  
+      - destroy-environment  
 
   configure-infrastructure:
     docker:
@@ -224,6 +224,12 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
+
+      - run:
+          name: Install dependencies
+          command: |
+            pip install awscli
+
       - restore_cache:
           keys: [backend-build]
       - run:
@@ -350,9 +356,7 @@ workflows:
       - scan-backend:
           requires: [build-backend]
       - deploy-infrastructure:
-          requires: 
-            - scan-frontend
-            - scan-backend
+          requires: [scan-frontend, scan-backend]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
       - run-migrations:
