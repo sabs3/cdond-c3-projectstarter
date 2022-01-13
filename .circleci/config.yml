@@ -237,6 +237,9 @@ jobs:
           command: |
             # Your code here
             cd backend
+
+            echo TYPEORM_MIGRATIONS=./src/migrations/*.ts >> .env
+            
             npm i
             npm install
             # npm install oauth-sign@^0.9.0
