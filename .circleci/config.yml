@@ -28,8 +28,8 @@ commands:
       - run:
           name: Revert migration
           command: |
-          cd backend
-          npm run migrations:revert
+            cd backend
+            npm run migrations:revert
 
 jobs:
   build-frontend:
