@@ -220,7 +220,7 @@ jobs:
   run-migrations:
     docker:
       # Docker image here that supports NodeJS
-      - image: python:3.7-alpine3.11
+      - image: circleci/node:13.8.0 
     steps:
       # Checkout code from git
       - checkout
@@ -260,9 +260,7 @@ jobs:
               echo "FAIL = 0"
             fi
 
-     # Here's where you will add some code to rollback on failure 
-      - destroy-environment
-      - revert-migration
+     # Here's where you will add some code to rollback on failure ß
 
   deploy-frontend:
     docker:
