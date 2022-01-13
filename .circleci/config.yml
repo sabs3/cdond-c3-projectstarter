@@ -311,7 +311,7 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
-             apk add --update tar gzip ansible nodejs npm
+            apk add --update tar gzip ansible nodejs npm
       - attach_workspace:
           at: ~/
 
