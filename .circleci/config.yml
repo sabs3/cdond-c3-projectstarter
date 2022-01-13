@@ -220,10 +220,15 @@ jobs:
   run-migrations:
     docker:
       # Docker image here that supports NodeJS
-      - image: circleci/node:13.8.0 
+      - image: python:3.7-alpine3.11
     steps:
       # Checkout code from git
       - checkout
+      - run:
+          name: Install dependencies
+          command: |
+              apk add --update ansible tar gzip ansible nodejs npm curl
+              pip install awscli
 
       - restore_cache:
           keys: [backend-build]
@@ -256,11 +261,13 @@ jobs:
             fi
 
      # Here's where you will add some code to rollback on failure ß
+      - destroy-environment
+      - revert-migration
 
   deploy-frontend:
     docker:
       # Docker image here that supports AWS CLI
-      - image: amazon/aws-cli
+      - image: python:3.7-alpine3.11
     steps:
       # Checkout code from git
       - checkout
@@ -273,7 +280,7 @@ jobs:
           command: |
             # your code here
             apk add --update ansible tar gzip ansible nodejs npm curl
-            pip install awscli
+            pip3 install awscli
 
       - run:
           name: Get backend url
