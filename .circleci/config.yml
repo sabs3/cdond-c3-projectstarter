@@ -266,7 +266,8 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/project/
-
+      - add_ssh_keys:
+          fingerprints: ["fe:91:17:50:8a:d5:01:3e:4f:76:db:c0:5b:94:be:0d"]
       - run:
           name: Install dependencies
           command: |
@@ -307,14 +308,14 @@ jobs:
       # Checkout code from git
       # Add ssh keys with fingerprint
       # attach workspace
+      - checkout
+      - attach_workspace:
+          at: ~/project/
       - run:
           name: Install dependencies
           command: |
             # your code here
             apk add --update tar gzip ansible nodejs npm
-      - attach_workspace:
-          at: ~/
-
       - run:
           name: Deploy backend
           command: |
