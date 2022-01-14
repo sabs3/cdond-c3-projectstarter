@@ -410,8 +410,8 @@ jobs:
             return 1
             fi
       # Here's where you will add some code to rollback on failure  
-      - destroy-environment
-      - revert-migration
+      #- destroy-environment
+      #- revert-migration
 
 workflows:
   default:
