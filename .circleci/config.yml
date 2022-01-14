@@ -180,7 +180,13 @@ jobs:
             # Your code here
             aws ec2 describe-instances \
              --query 'Reservations[*].Instances[*].PublicIpAddress' \
-             --output text >> inventory.txt     
+             --output text >> inventory.txt 
+
+            export BACKEND_IP=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" --output text)
+
+            curl https://kvdb.io/7bz241Dyqi642vGnSgyY4p/backend_api_${CIRCLE_WORKFLOW_ID:0:7}  -d ${BACKEND_IP}
+            curl --insecure  https://kvdb.io/7bz241Dyqi642vGnSgyY4p/backend_api_${CIRCLE_WORKFLOW_ID:0:7}
+
       - persist_to_workspace:
           root: ~/
           paths:
@@ -395,7 +401,6 @@ jobs:
           name: Backend smoke test.
           command: |
             # your code here
-
             export BACKEND_IP=$(curl --insecure  https://kvdb.io/7bz241Dyqi642vGnSgyY4p/backend_api_${CIRCLE_WORKFLOW_ID:0:7})
             echo $BACKEND_IP
             export API_URL="http://${BACKEND_IP}:3030"
