@@ -312,9 +312,9 @@ jobs:
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
             echo "${API_URL}"
 
-            curl https://kvdb.io/7bz241Dyqi642vGnSgyY4p/backend_api_${CIRCLE_WORKFLOW_ID:0:7}  -d '${API_URL}'
+            curl https://kvdb.io/7bz241Dyqi642vGnSgyY4p/backend_api_${CIRCLE_WORKFLOW_ID:0:7}  -d '${BACKEND_IP}'
             curl --insecure  https://kvdb.io/7bz241Dyqi642vGnSgyY4p/backend_api_${CIRCLE_WORKFLOW_ID:0:7}
-            
+
             echo "$API_URL" > ~/api_url.txt
             cat frontend/.env
 
@@ -390,11 +390,16 @@ jobs:
             # Fetch and prepare the BACKEND_IP env var
             export API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL = ${API_URL}"
-            
+
       - run:
           name: Backend smoke test.
           command: |
             # your code here
+
+            export BACKEND_IP=$(curl --insecure  https://kvdb.io/7bz241Dyqi642vGnSgyY4p/backend_api_${CIRCLE_WORKFLOW_ID:0:7})
+            echo $BACKEND_IP
+            export API_URL="http://${BACKEND_IP}:3030"
+            echo "API_URL = ${API_URL}"
 
             if curl "${API_URL}/api/status" | grep "ok"
             then
