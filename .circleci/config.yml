@@ -233,7 +233,7 @@ jobs:
           name: Install dependencies
           command: |
               apk add --update ansible tar gzip ansible nodejs npm curl
-              pip3 install awscli
+              pip3 install awscli make
 
       - restore_cache:
           keys: [backend-build]
