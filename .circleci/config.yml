@@ -27,6 +27,7 @@ commands:
     steps:
       - run:
           name: Revert migration
+          when: on_fail
           command: |
             cd backend
             npm run migrations:revert
