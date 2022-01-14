@@ -215,7 +215,12 @@ jobs:
             # Your code here
             cd .circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml
-      # Here's where you will add some code to rollback on failure   
+      # Here's where you will add some code to rollback on failure 
+      - run:
+          name: installing aws cli for roleback in case of failure
+          when: on_fail
+          command: |
+              apk add --update py3-pip && pip3 install --upgrade pip && pip3 install awscli
 
   run-migrations:
     docker:
@@ -249,7 +254,9 @@ jobs:
             echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> ".env"
             echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> ".env"
 
+            echo "Installing NPM depencencies"
             npm i
+            echo "Installing NPM"
             npm install
 
             # npm install oauth-sign@^0.9.0
