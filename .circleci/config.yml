@@ -312,7 +312,7 @@ jobs:
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
             echo "${API_URL}"
 
-            curl https://kvdb.io/7bz241Dyqi642vGnSgyY4p/backend_api_${CIRCLE_WORKFLOW_ID:0:7}  -d '${BACKEND_IP}'
+            curl https://kvdb.io/7bz241Dyqi642vGnSgyY4p/backend_api_${CIRCLE_WORKFLOW_ID:0:7}  -d ${BACKEND_IP}
             curl --insecure  https://kvdb.io/7bz241Dyqi642vGnSgyY4p/backend_api_${CIRCLE_WORKFLOW_ID:0:7}
 
             echo "$API_URL" > ~/api_url.txt
