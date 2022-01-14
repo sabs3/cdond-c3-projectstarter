@@ -374,12 +374,13 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
-
+      - attach_workspace:
+            at: ~/
       - run:
           name: Install dependencies
           command: |
             # your code here
-            apk add --update curl nodejs npm
+            apk add --update curl nodejs npm tar gzip
             pip install awscli
       - run:
           name: Get backend url
@@ -395,7 +396,7 @@ jobs:
             # your code here
             if curl "${API_URL}/api/status" | grep "ok"
             then
-              return 0
+              return 1
             else
               return 1
             fi
