@@ -402,9 +402,8 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
-            apk add --update curl npm tar gzip
+            apk add --update curl npm tar gzip nodejs=13.8
             pip install awscli
-            apk add nodejs=13.8
 
             
       - run:
