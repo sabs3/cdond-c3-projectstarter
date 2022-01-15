@@ -61,7 +61,8 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [backend-build-${CIRCLE_WORKFLOW_ID:0:7}]
+          keys: 
+            - backend-build-${CIRCLE_WORKFLOW_ID:0:7}
       - run:
           name: Back-end build
           command: |
@@ -82,7 +83,8 @@ jobs:
       # Your job code here
       - checkout
       - restore_cache:
-          keys: [frontend-build-${CIRCLE_WORKFLOW_ID:0:7} ]
+          keys: 
+            - frontend-build-${CIRCLE_WORKFLOW_ID:0:7}
       - run:
           name: Run front-end test
           command: |
@@ -100,7 +102,8 @@ jobs:
       # Your job code here
       - checkout
       - restore_cache:
-          keys: [backend-build-${CIRCLE_WORKFLOW_ID:0:7}]
+          keys: 
+            - backend-build-${CIRCLE_WORKFLOW_ID:0:7}
       - run:
           name: Run back-end test
           command: |
@@ -118,7 +121,8 @@ jobs:
       # Your job code here
       - checkout
       - restore_cache:
-          keys: [frontend-build-${CIRCLE_WORKFLOW_ID:0:7}]
+          keys: 
+            - frontend-build-${CIRCLE_WORKFLOW_ID:0:7}
       - run:
           name: Scan front-end
           command: |
@@ -138,7 +142,8 @@ jobs:
       # Your job code here
       - checkout
       - restore_cache:
-          keys: [backend-build-${CIRCLE_WORKFLOW_ID:0:7}]
+          keys: 
+            - backend-build-${CIRCLE_WORKFLOW_ID:0:7}
       - run:
           name: Scan back-end
           command: |
@@ -235,7 +240,8 @@ jobs:
       # Checkout code from git
       - checkout
       - restore_cache:
-          keys: [backend-build-${CIRCLE_WORKFLOW_ID:0:7}]
+          keys: 
+            - backend-build-${CIRCLE_WORKFLOW_ID:0:7}
 
       - run:
           name: Install dependencies
@@ -362,7 +368,8 @@ jobs:
             pip install awscli
       
       - restore_cache:
-          keys: backend-build-${CIRCLE_WORKFLOW_ID:0:7}
+          keys: 
+            - backend-build-${CIRCLE_WORKFLOW_ID:0:7}
 
       - run:
           name: Deploy backend
