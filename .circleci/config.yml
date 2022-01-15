@@ -402,7 +402,7 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
-            apk add --update curl nodejs npm tar gzip
+            apk add --update curl npm tar gzip
             pip install awscli
       - run:
           name: Get backend url
