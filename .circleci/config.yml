@@ -245,9 +245,6 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
-      - restore_cache:
-          keys: 
-            - backend-build-${CIRCLE_WORKFLOW_ID:0:7}
 
       - run:
           name: Install dependencies
@@ -272,9 +269,9 @@ jobs:
             echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> ".env"
 
             echo "Installing NPM depencencies"
-            npm i >> npminstall.log
+            npm i 
             echo "Installing NPM"
-            npm install >> npminstall.log
+            npm install
 
             # npm install oauth-sign@^0.9.0
             # npm audit fix --audit-level=critical --force
