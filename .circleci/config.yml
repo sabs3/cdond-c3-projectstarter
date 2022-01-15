@@ -413,7 +413,6 @@ jobs:
             # your code here
             apk add --update curl npm tar gzip nodejs
             pip install awscli
-
             
       - run:
           name: Get backend url
