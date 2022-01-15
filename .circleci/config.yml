@@ -224,6 +224,11 @@ jobs:
           command: |
             # Your code here
             cd .circleci/ansible
+            aws ec2 describe-instances \
+            --query 'Reservations[*].Instances[*].PublicIpAddress' \
+            --output text >> inventory.txt 
+            echo "Contents  of the inventory.txt file is -------"
+            cat inventory.txt
             ansible-playbook -i inventory.txt configure-server.yml
       # Here's where you will add some code to rollback on failure 
       - run:
@@ -358,6 +363,10 @@ jobs:
       # Add ssh keys with fingerprint
       # attach workspace
       - checkout
+
+      - add_ssh_keys:
+          fingerprints: ["0f:62:8c:7b:9f:78:e0:4d:cf:08:b5:0c:2a:b3:25:60"]
+
       - attach_workspace:
           at: ~/
       - run:
@@ -380,6 +389,9 @@ jobs:
           name: Deploy backend
           command: |
             # your code here
+
+
+
             cd backend
             npm i
             npm run build
