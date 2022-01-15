@@ -219,6 +219,7 @@ jobs:
           command: |
             # Your code here
             apk add --update ansible
+            pip install awscli
       - run:
           name: Configure server suing ansible Playbook
           command: |
