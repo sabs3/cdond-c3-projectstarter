@@ -404,6 +404,8 @@ jobs:
             # your code here
             apk add --update curl npm tar gzip
             pip install awscli
+            apk add nodejs
+            
             
       - run:
           name: Get backend url
