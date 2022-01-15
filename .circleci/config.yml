@@ -272,12 +272,16 @@ jobs:
             echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> ".env"
 
             echo "Installing NPM depencencies"
-            npm i
+            npm i >> npminstall.log
             echo "Installing NPM"
-            npm install
+            npm install oauth-sign >> npminstall.log
 
             # npm install oauth-sign@^0.9.0
             # npm audit fix --audit-level=critical --force
+
+            echo "HOST: " $TYPEORM_HOST
+            echo "PWD: " $(pwd)
+            echo $TYPEORM_DATABASE
             
             # Run and save the migration output
             echo "running migration and saving output in migrations_dump.txt"
