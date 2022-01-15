@@ -35,7 +35,8 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [ frontend-build-${CIRCLE_WORKFLOW_ID:0:7} ]
+          keys: 
+            - frontend-build-${CIRCLE_WORKFLOW_ID:0:7}
       
       - run:
           name: Build front-end
