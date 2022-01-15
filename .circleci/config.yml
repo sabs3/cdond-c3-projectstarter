@@ -245,7 +245,9 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
-
+      - restore_cache:
+          keys:
+            - backend-build-${CIRCLE_WORKFLOW_ID:0:7}
       - run:
           name: Install dependencies
           command: |
@@ -275,10 +277,6 @@ jobs:
 
             # npm install oauth-sign@^0.9.0
             # npm audit fix --audit-level=critical --force
-
-            echo "HOST: " $TYPEORM_HOST
-            echo "PWD: " $(pwd)
-            echo $TYPEORM_DATABASE
             
             # Run and save the migration output
             echo "running migration and saving output in migrations_dump.txt"
