@@ -285,7 +285,7 @@ jobs:
             
             # Run and save the migration output
             echo "running migration and saving output in migrations_dump.txt"
-            npm -v run migrations > migrations_dump.txt
+            npm run migrations > migrations_dump.txt
             echo 'DISPLAY CONTENTS'
             echo '*****************'
             cat migrations_dump.txt
