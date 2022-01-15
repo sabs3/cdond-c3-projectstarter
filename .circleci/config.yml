@@ -397,9 +397,9 @@ jobs:
             npm run build
             cd ..
             # Zip the directory
-            tar -czvf artifact.tar.gz ./
+            tar -czvf /etc/artifact.tar.gz ./
             chmod 644 /etc/artifact.tar.gz
-            
+
             cd .circleci/ansible
             
             aws ec2 describe-instances \
