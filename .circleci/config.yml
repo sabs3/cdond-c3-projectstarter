@@ -321,6 +321,8 @@ jobs:
             curl https://kvdb.io/7bz241Dyqi642vGnSgyY4p/backend_api_${CIRCLE_WORKFLOW_ID:0:7}  -d ${BACKEND_IP}
             curl --insecure  https://kvdb.io/7bz241Dyqi642vGnSgyY4p/backend_api_${CIRCLE_WORKFLOW_ID:0:7}
 
+            curl "${API_URL}/api/status"
+
             echo "$API_URL" > ~/api_url.txt
             cat frontend/.env
 
