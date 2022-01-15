@@ -35,7 +35,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [frontend-build]
+          keys: [frontend-build]-${CIRCLE_WORKFLOW_ID:0:7} 
       - run:
           name: Build front-end
           command: |
@@ -45,7 +45,7 @@ jobs:
             npm run build      
       - save_cache:
           paths: [frontend/node_modules]
-          key: frontend-build
+          key: frontend-build-${CIRCLE_WORKFLOW_ID:0:7} 
       - slack/notify:
           event: fail
           template: basic_fail_1
@@ -59,7 +59,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [backend-build]
+          keys: [backend-build-${CIRCLE_WORKFLOW_ID:0:7}]
       - run:
           name: Back-end build
           command: |
@@ -69,7 +69,7 @@ jobs:
             npm run build
       - save_cache:
           paths: [backend/node_modules]
-          key: backend-build
+          key: backend-build-${CIRCLE_WORKFLOW_ID:0:7} 
 
   test-frontend:
     docker:
@@ -80,7 +80,7 @@ jobs:
       # Your job code here
       - checkout
       - restore_cache:
-          keys: [frontend-build]
+          keys: [frontend-build-${CIRCLE_WORKFLOW_ID:0:7} ]
       - run:
           name: Run front-end test
           command: |
@@ -98,7 +98,7 @@ jobs:
       # Your job code here
       - checkout
       - restore_cache:
-          keys: [backend-build]
+          keys: [backend-build-${CIRCLE_WORKFLOW_ID:0:7}]
       - run:
           name: Run back-end test
           command: |
@@ -116,7 +116,7 @@ jobs:
       # Your job code here
       - checkout
       - restore_cache:
-          keys: [frontend-build]
+          keys: [frontend-build-${CIRCLE_WORKFLOW_ID:0:7}]
       - run:
           name: Scan front-end
           command: |
@@ -136,7 +136,7 @@ jobs:
       # Your job code here
       - checkout
       - restore_cache:
-          keys: [backend-build]
+          keys: [backend-build-${CIRCLE_WORKFLOW_ID:0:7}]
       - run:
           name: Scan back-end
           command: |
@@ -181,16 +181,16 @@ jobs:
             aws ec2 describe-instances \
              --query 'Reservations[*].Instances[*].PublicIpAddress' \
              --output text >> inventory.txt 
+             
+            cat inventory.txt
+             
+            pwd
 
             export BACKEND_IP=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" --output text)
 
             curl https://kvdb.io/7bz241Dyqi642vGnSgyY4p/backend_api_${CIRCLE_WORKFLOW_ID:0:7}  -d ${BACKEND_IP}
             curl --insecure  https://kvdb.io/7bz241Dyqi642vGnSgyY4p/backend_api_${CIRCLE_WORKFLOW_ID:0:7}
 
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - project/.circleci/ansible/inventory.txt
       # Here's where you will add some code to rollback on failure 
       - destroy-environment  
 
@@ -233,7 +233,7 @@ jobs:
       # Checkout code from git
       - checkout
       - restore_cache:
-          keys: [backend-build]
+          keys: [backend-build-${CIRCLE_WORKFLOW_ID:0:7}]
 
       - run:
           name: Install dependencies
@@ -358,6 +358,10 @@ jobs:
             # your code here
             apk add --update tar gzip ansible nodejs npm
             pip install awscli
+      
+      - restore_cache:
+          keys: backend-build-${CIRCLE_WORKFLOW_ID:0:7}
+
       - run:
           name: Deploy backend
           command: |
