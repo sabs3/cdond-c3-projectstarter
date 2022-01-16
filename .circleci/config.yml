@@ -13,6 +13,8 @@ commands:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
     parameters:
       # Add parameter here
+      workflow_id:
+        type: string 
     steps:
       - run:
           name: Destroy Backend, frontend stack and s3 environments
