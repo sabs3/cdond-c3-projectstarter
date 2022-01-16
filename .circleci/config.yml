@@ -450,7 +450,7 @@ jobs:
               return 0
               echo "Smoke Test success"
             else
-              return 0
+              return 1
             fi
       - run:
           name: Frontend smoke test.
