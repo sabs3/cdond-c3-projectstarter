@@ -15,6 +15,7 @@ commands:
       # Add parameter here
       workflow_id:
         type: string 
+        default: "${CIRCLE_WORKFLOW_ID:0:7}"
     steps:
       - run:
           name: Destroy Backend, frontend stack and s3 environments
