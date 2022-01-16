@@ -529,7 +529,7 @@ jobs:
       # Here's where you will add some code to rollback on failure  
       - destroy-environment
       - revert-migration
-      
+
   cleanup:
       docker:
         # Docker image here
@@ -537,8 +537,6 @@ jobs:
       steps:
         # Checkout code from git
         - checkout
-        - attach_workspace:
-          at: ~/
         - run:
             name: Get old stack workflow id
             command: |
