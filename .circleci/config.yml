@@ -447,7 +447,7 @@ jobs:
 
             if curl "${API_URL}/api/status"
             then
-              return 0
+              return 1
               echo "Smoke Test success"
             else
               return 1
