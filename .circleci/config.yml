@@ -374,7 +374,7 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
-            apk add --update tar gzip ansible nodejs npm curl
+            apk add --update tar gzip ansible nodejs npm curl jq nginx
             pip install awscli
 
       - run:
