@@ -510,9 +510,7 @@ jobs:
             --no-paginate --output text)
             echo $OldWorkflowID >> ~/OldWorkflowID.txt
             cat ~/OldWorkflowID.txt
-      - run:
-          name: Update cloudfront distribution
-          command: |
+  
             # your code here
             aws cloudformation deploy \
             --template-file .circleci/files/cloudfront.yml \
