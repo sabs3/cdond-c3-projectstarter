@@ -27,7 +27,7 @@ commands:
   revert-migration:
     description: This will revert last migration that ran
     parameters:
-    workflow_id:
+      workflow_id:
         type: string 
     steps:
       - run:
