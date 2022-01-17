@@ -241,7 +241,7 @@ jobs:
             apk add --update ansible
             pip install awscli
       - run:
-          name: Configure server suing ansible Playbook
+          name: Configure servers using ansible Playbook
           command: |
             # Your code here
             cd .circleci/ansible
