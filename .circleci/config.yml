@@ -524,7 +524,7 @@ jobs:
       # Docker image here
       - image: amazon/aws-cli
     steps:
-      # Checkout code from git
+      # Checkout code from git checkout form git
       - checkout
       - run:
           name: Get old stack workflow id
