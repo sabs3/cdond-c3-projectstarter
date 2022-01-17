@@ -499,10 +499,8 @@ jobs:
       - checkout
       - run:
           name: Get old stack workflow id and deploy
-          wait_for_connection:
-            timeout: 800
           command: |
-  
+
             OldWorkflowID=$(aws cloudformation \
             list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
             --no-paginate --output text)
@@ -517,14 +515,12 @@ jobs:
             --tags project=udapeople
 
             echo OldWorkflowID: "${OldWorkflowID}"
-            echo Current Workflow Id: "${CIRCLE_WORKFLOW_ID:0:7}"
-
-      # Here's where you will add some code to rollback on failure  
+            echo Current Workflow Id: "${CIRCLE_WORKFLOW_ID:0:7}"    
       - destroy-environment
       - revert-migration
-
+  
   cleanup:
-      docker:
+    docker:
         # Docker image here
         - image: amazon/aws-cli
       steps:
