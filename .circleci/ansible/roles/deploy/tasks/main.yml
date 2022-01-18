@@ -16,8 +16,10 @@
 - name: "run backend"
   become_user: true
   shell: |
-    cd ~/
+    ls -la
+    cd ~/backend
+    ls -la
     npm i
     pm2 stop default
-    pm2 start npm -- run start
+    pm2 start npm -- start
     

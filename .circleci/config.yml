@@ -426,7 +426,7 @@ jobs:
             echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> backend/.env
             
 
-            cd backend
+            #cd backend
             npm i
             npm run build
             cd ..
