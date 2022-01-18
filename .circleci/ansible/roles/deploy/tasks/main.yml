@@ -1,22 +1,23 @@
 ---
 
-- name: "Create directory"
-  become_user: true
-  file:
-    path: ~/udapeople/
-    state: directory
+# - name: "Create directory"
+#   become_user: true
+#   file:
+#     path: ~/udapeople/
+#     state: directory
 
 
 - name: "deploy backend"
   become_user: true
   unarchive:
     src: /etc/artifact.tar.gz
-    dest: ~/udapeople/
+    dest: ~/
 
 - name: "run backend"
   become_user: true
   shell: |
-    cd ~/udapeople/
+    cd ~/
     npm i
     pm2 stop default
-    pm2 start npm -- start 
+    pm2 start npm -- run start
+    
