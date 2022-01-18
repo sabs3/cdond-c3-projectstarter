@@ -10,6 +10,75 @@
     - ansible_stdout_callback: yaml
     - ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
 
-    
+- name: "install dependencies."
+  become: yes
+  apt:
+    name: ["nginx", "npm", nodejs]
+    state: latest
+    update_cache: yes
+
+- name: Install pm2
+  become: yes
+  npm:
+    name: pm2
+    global: yes
+    production: yes
+    state: present
+
+- name: Creates Directory
+  become: yes
+  file:
+    path: ~/backend
+    state: directory
+    mode: 0755
+
+- name: Copy backend dist files web server
+  become: yes
+  copy:
+    src: ~/project/artifact.tar.gz
+    dest: ~/backend/artifact.tar.gz
+    #dest: /home/ubuntu/backend/artifact.tar.gz
+
+- name: Extract backend files
+  become: yes
+  shell: |
+    cd ~/backend
+    tar -vxf artifact.tar.gz
+
+-  name: NPM install
+  become: true    
+  command: npm install
+  args:
+    chdir: /root/backend
+  register: shell_output
+
+- name: NPM build
+  become: true  
+  command: npm run build
+  args:
+    chdir: /root/backend    
+  register: shell_output
+
+- name: PM2 start backend
+  become: true  
+  command: pm2 start npm --name "backend" -- run start
+  args:
+    chdir: /root/backend  
+  register: shell_output  
+
+- name: PM2 check backend status in pm2
+  become: true
+  command: pm2 status
+  args:
+    chdir: /root/backend  
+  register: shell_output  
+
+- name: PM2 start main
+  become: true
+  command: pm2 start main.js --update-env
+  args:
+    chdir: /root/backend/dist    
+  register: shell_output
+
   roles:
     - deploy
