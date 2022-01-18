@@ -426,7 +426,7 @@ jobs:
             echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> backend/.env
             
 
-            #cd backend
+            cd backend
             npm i
             npm run build
             cd ..
@@ -485,7 +485,7 @@ jobs:
               return 0
               echo "Smoke Test success"
             else
-              return 0
+              return 1
             fi
       - run:
           name: Frontend smoke test.

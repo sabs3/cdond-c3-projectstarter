@@ -17,7 +17,7 @@
   become_user: true
   shell: |
     ls -la
-    cd ~/
+    cd ~/backend/
     ls -la
     npm i
     pm2 stop default
