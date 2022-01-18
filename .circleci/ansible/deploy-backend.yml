@@ -45,7 +45,7 @@
     cd ~/backend
     tar -vxf artifact.tar.gz
 
--  name: NPM install
+- name: NPM install
   become: true    
   command: npm install
   args:
